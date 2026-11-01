@@ -1,0 +1,12 @@
+# sistema / system
+.DS_Store
+Thumbs.db
+# editor
+.vscode/
+.idea/
+# dipendenze eventuali / possible dependencies
+node_modules/
+__pycache__/
+# progetti esportati: possono contenere dati dei clienti (IP, nomi, reti)
+# exported projects may contain customer data (IPs, names, networks)
+/*.json
