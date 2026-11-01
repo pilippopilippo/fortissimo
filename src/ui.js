@@ -20,7 +20,7 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
 };
 
-const S = { m: null, sec: { psk: "", ppk: "", bgp: "", ldap: "", radius: "" }, lang: "it", mode: "essential", view: "form", tab: "a", search: "", showPsk: false, checks: [] };
+const S = { m: null, sec: { psk: "", ppk: "", bgp: "", ldap: "", radius: "" }, lang: "en", mode: "essential", view: "form", tab: "a", search: "", showPsk: false, checks: [] };
 const T = k => (UI[S.lang] && UI[S.lang][k]) || UI.it[k] || k;
 const H = k => (HELP[S.lang] && HELP[S.lang][k]) || HELP.it[k] || [k, "", ""];
 
@@ -51,8 +51,8 @@ const same = (a, b) => JSON.stringify(a ?? "") === JSON.stringify(b ?? "");
 function persist() { store.set(ST_KEY, { m: S.m, lang: S.lang, mode: S.mode }); }
 function loadState() {
   const st = store.get(ST_KEY);
-  if (st && st.m && st.m.v === 1) { S.m = upgradeModel(st.m); S.lang = st.lang || "it"; S.mode = st.mode || "essential"; }
-  else { const nav = (navigator.language || "it").slice(0, 2); S.lang = nav === "it" ? "it" : "en"; S.m = makePreset("s2s", S.lang); }
+  if (st && st.m && st.m.v === 1) { S.m = upgradeModel(st.m); S.lang = st.lang || "en"; S.mode = st.mode || "essential"; }
+  else { S.lang = "en"; S.m = makePreset("s2s", S.lang); }
   S.m.adv = S.m.adv || { a: {}, b: {} };
 }
 

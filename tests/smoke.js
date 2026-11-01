@@ -1,4 +1,3 @@
-// Prova rapida del motore senza dipendenze: node tests/smoke.js
 // Quick engine test with no dependencies: node tests/smoke.js
 const fs = require("fs"), path = require("path"), vm = require("vm");
 const src = f => fs.readFileSync(path.join(__dirname, "..", "src", f), "utf8");
@@ -11,17 +10,16 @@ for (const lang of ["it", "en"]) for (const fos of ["7.2", "7.4", "7.6"]) for (c
   try {
     E.setOutLang(lang);
     const m = E.makePreset(id, lang); m.fos = fos;
-    // il preset SAML lascia vuoti i dati del tenant: li riempiamo con valori finti
     // the SAML preset leaves tenant data empty: fill it with dummy values
     if (id === "fct-saml") Object.assign(m.dial, { tenant: "00000000-0000-4000-8000-000000000001", groupId: "00000000-0000-4000-8000-000000000002" });
     const a = E.genFortiGate(m, "a", sec);
-    if (!a.includes("config vpn ipsec phase1-interface")) throw new Error("phase1 mancante / missing");
+    if (!a.includes("config vpn ipsec phase1-interface")) throw new Error("phase1 missing");
     if (m.scenario === "dialup") { E.genXml(m, sec); E.guideText(E.genGuide(m, lang), m, lang); }
     else E.genFortiGate(m, "b", sec);
     E.genDiag(m, "a", lang); E.genSummary(m, lang);
     const errs = E.runChecks(m, sec, lang).filter(c => c.lvl === "err");
-    if (errs.length && id !== "custom") throw new Error("errori nelle verifiche / check errors: " + errs.map(e => e.msg).join(" | "));
+    if (errs.length && id !== "custom") throw new Error("check errors: " + errs.map(e => e.msg).join(" | "));
   } catch (e) { fails++; console.error(`KO ${lang} ${fos} ${id}: ${e.message}`); }
 }
-console.log(fails ? `${fails} prove fallite / failed` : "Tutte le prove superate / all tests passed");
+console.log(fails ? `${fails} tests failed` : "All tests passed");
 process.exit(fails ? 1 : 0);
