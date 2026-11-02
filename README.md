@@ -4,7 +4,8 @@
 
 **Website:** https://pilippopilippo.github.io/fortissimo/
 
-Fortissimo is a web page that generates FortiGate IPsec VPN and BGP CLI configuration from a few fields in a guided form. It runs entirely in the browser: no server, no data sent anywhere. The interface is available in English and Italian.
+Fortissimo is a web page that generates FortiGate IPsec VPN and BGP CLI configuration from a few fields in a guided form. It runs entirely in the browser: no server, no data sent anywhere. 
+The interface is available in English and Italian.
 
 ## Scenarios
 
